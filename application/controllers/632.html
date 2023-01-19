@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php include('include/head.php') ?>
+    <style>
+    #myDiv {
+        text-align: center;
+        margin-top: 17px;
+        color: #000;
+        font-size: 20px;
+    }
+
+    #mySpan {
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+    }
+
+    .sidenav {
+        height: 150px;
+        top: 550px;
+        width: 30px;
+        position: fixed;
+        z-index: 9999;
+        left: 0px;
+        background-color: #F85;
+
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 10px;
+            margin-top: 50px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+            margin-top: 50px;
+        }
+    }
+
+
+
+
+
+    /* ----- v CAN BE DELETED v ----- */
+    body {
+        background-color: #FFF;
+    }
+
+    .demo {
+        padding-top: 60px;
+        padding-bottom: 110px;
+    }
+
+    .btn-demo {
+        margin: 15px;
+        padding: 10px 15px;
+        border-radius: 0;
+        font-size: 16px;
+        background-color: #FFFFFF;
+    }
+
+    .btn-demo:focus {
+        outline: 0;
+    }
+
+    .demo-footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 15px;
+        background-color: #212121;
+        text-align: center;
+    }
+
+    .demo-footer>a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        color: #fff;
+    }
+
+
+    .tent {
+        position: absolute;
+        top: 0;
+        background: rgba(0, 0, 0, 0.6);
+        /* Black background with transparency */
+        color: #f1f1f1;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+
+    < !-- calculator-->.calculate-form {
+        position: absolute;
+        top: 50%;
+        width: 400px;
+        transform: translate(-50%, -50%);
+    }
+
+
+
+
+
+    #result {
+        display: none;
+        align: left;
+    }
+
+    #loading {
+        display: none;
+        align: center;
+    }
+
+
+    .fa-facebook {
+        background: #3B5998;
+        color: white;
+        margin-left: 10px;
+    }
+
+    .fa-twitter {
+        background: #55ACEE;
+        color: white;
+    }
+
+
+
+    /* Style the tab */
+    .tab {
+        float: left;
+        border: 1px solid #5a6;
+        background-color: #5a6;
+        width: 30%;
+        height: auto;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 22px 16px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #FFF;
+    }
+
+    /* Create an active/current "tab button" class */
+    .tab button.active {
+        background-color: #FFF;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        border: 1px solid #ccc;
+        width: 70%;
+        border-left: none;
+        height: auto;
+    }
+
+    < !--branch-->
+
+    /*--------------------------------------------------------------
+# Departments
+--------------------------------------------------------------*/
+    .departments .nav-tabs {
+        border: 0;
+    }
+
+    .departments .nav-link {
+        border: 0;
+        padding: 5px 5px;
+        color: #555555;
+        border-radius: 0;
+        border-left: 5px solid #fff;
+        cursor: pointer;
+
+        margin-bottom: -2px;
+    }
+
+    .departments .nav-link h4 {
+        font-size: 14.5px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .departments .nav-link p {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .departments .nav-link:hover h4 {
+        color: #4b9a59;
+    }
+
+    .departments .nav-link.active {
+        background: #f7fcfc;
+        border-color: #4b9a59;
+
+
+    }
+
+    .departments .nav-link.active h4 {
+        color: #4b9a59;
+    }
+
+    .departments .tab-pane.active {
+        -webkit-animation: slide-down 0.5s ease-out;
+        animation: slide-down 0.5s ease-out;
+    }
+
+    .departments .tab-pane img {
+        float: left;
+        max-width: 300px;
+        padding: 0 15px 15px 0;
+    }
+
+    @media (max-width: 768px) {
+        .departments .tab-pane img {
+            float: none;
+            padding: 0 0 15px 0;
+            max-width: 100%;
+        }
+    }
+
+    .departments .tab-pane h3 {
+        font-size: 19px;
+        font-weight: 800;
+        margin-bottom: 14px;
+        color: #4b9a59;
+    }
+
+    .departments .tab-pane p {
+        color: #777777;
+    }
+
+    .departments .tab-pane p:last-child {
+        margin-bottom: 0;
+    }
+
+    @-webkit-keyframes slide-down {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-down {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .megamenu h5 {
+        font-size: 15px;
+    }
+
+    .blink {
+        animation: blinkMe 1s linear infinite;
+    }
+
+    @keyframes blinkMe {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    iframe {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    .wrapper{
+        width: 90%;
+        margin: auto;
+        max-width: 1100px;
+    }
+    .search_input{
+        padding: 15px;
+        background: #f1f1f1;
+        border: 1px solid #ccc;
+    }
+    .search_input input {
+        padding: 15px;
+        background: #f1f1f1;
+        border: 1px solid #ccc;
+        width:80%;
+    }
+    .search_input button {
+        background-color: #f08143;
+        color: white;
+        padding: 16px 15px;
+        border: none;
+        width: 19%;
+    }
+    .search_input button:hover{
+        background: #277d3c;
+    }
+       
+
+    </style>
+</head>
+
+<body>
+    <?php include('include/header.php') ?>
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <section class="breadcrumb-area bg-img"
+        style="background-image: url(<?= base_url('assets/') ?>img/bg-img/branches.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <h2>Unclaimed Deposit</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">unclaimed deposit</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Breadcrumb Area End ##### -->
+    <!-- ##### Breadcrumb Area End ##### -->
+    <!--<div id="roof" style="background-color:#4b9a59;">
+<div class="container" style="width:100%;height:35px;position:relative;" >
+
+
+
+
+
+<marquee onmousedown="this.stop();" onmouseup="this.start();" style="width:100%;margin-top:3px;" direction="right"><a href="notification/Malojiraje Bank Notice 2021.pdf" style="color:#FFF;" target="_blank"><span class="badge badge-pill blink" style="width:160px;height:30px;font-size:18px;padding:6px;background-color:#f00;"><strong> NOTIFICATION</strong></span></a></marquee>
+
+
+
+
+</div>
+</div>-->
+
+
+
+    <!-- ##### Services Area Start ###### -->
+    <section class="services-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Section Heading -->
+                    <div class="section-heading text-center mb-60">
+                        <div class="line"></div>
+
+                        <h2>Unclaimed Deposit</h2>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <div class="container" style="margin-bottom:15px;">
+        <!-- ======= Departments Section ======= -->
+        <section id="departments" class="departments" style="margin:10px 0 50px 0;">
+            <div class="container">
+
+
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 wrapper"><br><br>
+                        <div class="search_input">
+                            <form method="post" id="searc_form">
+                            <input type="text" name="search" placeholder="Type Your Name..">
+                            <button  type="submit">Search Now</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 wrapper" id="showdata">
+                     <h3 style="color:green; display: none;" id="showmes">Please Wailt For Result</h3>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Departments Section -->
+    </div>
+
+    <?php include('include/footer.php') ?>
+    <?php include('include/script.php') ?>
+
+    <script type="text/javascript">
+        $(document).on('submit','#searc_form',function(e){
+            e.preventDefault();
+            $('#showmes').css('display','block');
+           $.ajax({
+                url:'<?= base_url('Welcome/fectch_unclaimed') ?>',
+                type:'post',
+                data:$(this).serialize(),
+                success:function(res){
+                  $('#showdata').html(res);
+                }
+
+           })
+        })
+    </script>
+
+</body>
+
+</html>
