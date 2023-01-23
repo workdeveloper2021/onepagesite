@@ -42,32 +42,31 @@ class Item extends BaseController
         $image = curl_file_create($_FILES['image']['tmp_name'],$_FILES['image']['type'],$_FILES['image']['name']);
         $video = curl_file_create($_FILES['video']['tmp_name'],$_FILES['video']['type'],$_FILES['video']['name']);
 
-        $postRequest = array(
-               'categoryId' => $_POST['categoryId'],
-               'name' => 'test',
-               'thumbnail' => $image,
-               'url' =>$video
-        );
-           $cURL = curl_init('http://107.21.80.111:5500/admin/item/addItem');
-           curl_setopt($cURL, CURLOPT_POSTFIELDS, $postRequest);
-           curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+            $postRequest = array(
+                   'categoryId' => $_POST['categoryId'],
+                   'name' => 'test',
+                   'thumbnail' => $image,
+                   'url' =>$video
+            );
+           $ch = curl_init();
 
-           if(curl_exec($cURL) === false){
-                echo 'Curl error: ' . curl_error($cURL);
-           }else{
-                $curlResponse = curl_exec($cURL);
-           }
-           curl_close($cURL);
-        if($curlResponse){
-            
+            curl_setopt($ch, CURLOPT_URL, 'http://107.21.80.111:5500/admin/item/addItem');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+           
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postRequest);
+
+            $result = curl_exec($ch);
+            if (curl_errno($ch)) {
+                echo 'Error:' . curl_error($ch);
+                $this->session->set_flashdata('fail','Not Added');
+                redirect('item?id='.$_POST['categoryId']);
+
+            }
             $this->session->set_flashdata('up_success','Slider Added Successfully');
-            redirect('item?id='.$_POST['categoryId']);
-        }
-        else{
-            
-            $this->session->set_flashdata('fail','Not Added');
-            redirect('item?id='.$_POST['categoryId']);
-        }
+                redirect('item?id='.$_POST['categoryId']);
+            curl_close($ch);
+      
     }
 
     public function update(){
