@@ -63,7 +63,7 @@ class Item extends BaseController
                 redirect('item?id='.$_POST['categoryId']);
 
             }
-            $this->session->set_flashdata('up_success','Slider Added Successfully');
+            $this->session->set_flashdata('up_success','Item Added Successfully');
                 redirect('item?id='.$_POST['categoryId']);
             curl_close($ch);
       
@@ -90,27 +90,25 @@ class Item extends BaseController
                'thumbnail' => $image,
                'url' =>$video
         );
-           $cURL = curl_init('http://107.21.80.111:5500/admin/item/updateItem');
+
+           $cURL = curl_init();
+           curl_setopt($cURL, CURLOPT_URL, 'http://107.21.80.111:5500/admin/item/updateItem');
            curl_setopt($cURL, CURLOPT_POSTFIELDS, $postRequest);
            curl_setopt($cURL, CURLOPT_CUSTOMREQUEST, 'PUT');
            curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
 
            if(curl_exec($cURL) === false){
                 echo 'Curl error: ' . curl_error($cURL);
+                $this->session->set_flashdata('fail','Not Added');
+                redirect('item?id='.$_POST['categoryId']);
            }else{
                 $curlResponse = curl_exec($cURL);
            }
-           curl_close($cURL);
-            if($curlResponse){
-                
-                $this->session->set_flashdata('up_success','Item Updated Successfully');
+
+            $this->session->set_flashdata('up_success','Item Updated Successfully');
                 redirect('item?id='.$_POST['categoryId']);
-            }
-            else{
-                
-                $this->session->set_flashdata('fail','Banner Not Added');
-               redirect('item?id='.$_POST['categoryId']);
-            }
+           curl_close($cURL);
+          
     }
     public function delete()
     { 
