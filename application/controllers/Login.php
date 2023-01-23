@@ -15,7 +15,7 @@ class Login extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Login_model');
+        $this->load->model('Login_model','LM');
     }
 
     /**
@@ -63,7 +63,7 @@ class Login extends CI_Controller
             $email = $this->input->post('email');
             $password = $this->input->post('password');
             
-            $result = $this->Login_model->loginMe($email, $password);
+            $result = $this->LM->loginMe($email, $password);
             
             if(count($result) > 0)
             {
@@ -117,7 +117,7 @@ class Login extends CI_Controller
         {
             $email = $this->input->post('login_email');
             
-            if($this->Login_model->checkEmailExist($email))
+            if($this->LM->checkEmailExist($email))
             {
                 $encoded_email = urlencode($email);
                 
@@ -128,12 +128,12 @@ class Login extends CI_Controller
                 $data['agent'] = getBrowserAgent();
                 $data['client_ip'] = $this->input->ip_address();
                 
-                $save = $this->Login_model->resetPasswordUser($data);                
+                $save = $this->LM->resetPasswordUser($data);                
                 
                 if($save)
                 {
                     $data1['reset_link'] = base_url() . "resetPasswordConfirmUser/" . $data['activation_id'] . "/" . $encoded_email;
-                    $userInfo = $this->Login_model->getCustomerInfoByEmail($email);
+                    $userInfo = $this->LM->getCustomerInfoByEmail($email);
 
                     if(!empty($userInfo)){
                         $data1["name"] = $userInfo[0]->name;
@@ -173,7 +173,7 @@ class Login extends CI_Controller
         $email = urldecode($email);
         
         // Check activation id in database
-        $is_correct = $this->Login_model->checkActivationDetails($email, $activation_id);
+        $is_correct = $this->LM->checkActivationDetails($email, $activation_id);
         
         $data['email'] = $email;
         $data['activation_code'] = $activation_id;
@@ -211,11 +211,11 @@ class Login extends CI_Controller
             $cpassword = $this->input->post('cpassword');
             
             // Check activation id in database
-            $is_correct = $this->Login_model->checkActivationDetails($email, $activation_id);
+            $is_correct = $this->LM->checkActivationDetails($email, $activation_id);
             
             if($is_correct == 1)
             {                
-                $this->Login_model->createPasswordUser($email, $password);
+                $this->LM->createPasswordUser($email, $password);
                 
                 $status = 'success';
                 $message = 'Password changed successfully';
