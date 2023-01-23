@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "WebController";
+$route['default_controller'] = "Webcontroller";
 $route['admin'] = "login";
 // $route['404_override'] = 'error';
 
