@@ -17,7 +17,7 @@ class User extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('Usermodel','UM');
         $this->isLoggedIn();   
     }
     
@@ -42,18 +42,18 @@ class User extends BaseController
         }
         else
         {
-            $this->load->model('user_model');
+            $this->load->model('UM');
         
             $searchText = $this->input->post('searchText');
             $data['searchText'] = $searchText;
             
             $this->load->library('pagination');
             
-            $count = $this->user_model->userListingCount($searchText);
+            $count = $this->UM->userListingCount($searchText);
 
 			$returns = $this->paginationCompress ( "userListing/", $count, 5 );
             
-            $data['userRecords'] = $this->user_model->userListing($searchText, $returns["page"], $returns["segment"]);
+            $data['userRecords'] = $this->UM->userListing($searchText, $returns["page"], $returns["segment"]);
             
             $this->global['pageTitle'] = 'CodeInsect : User Listing';
             
@@ -72,8 +72,8 @@ class User extends BaseController
         }
         else
         {
-            $this->load->model('user_model');
-            $data['roles'] = $this->user_model->getUserRoles();
+            $this->load->model('UM');
+            $data['roles'] = $this->UM->getUserRoles();
             
             $this->global['pageTitle'] = 'CodeInsect : Add New User';
 
@@ -90,9 +90,9 @@ class User extends BaseController
         $email = $this->input->post("email");
 
         if(empty($userId)){
-            $result = $this->user_model->checkEmailExists($email);
+            $result = $this->UM->checkEmailExists($email);
         } else {
-            $result = $this->user_model->checkEmailExists($email, $userId);
+            $result = $this->UM->checkEmailExists($email, $userId);
         }
 
         if(empty($result)){ echo("true"); }
@@ -134,8 +134,8 @@ class User extends BaseController
                 $userInfo = array('email'=>$email, 'password'=>getHashedPassword($password), 'roleId'=>$roleId, 'name'=> $name,
                                     'mobile'=>$mobile, 'createdBy'=>$this->vendorId, 'createdDtm'=>date('Y-m-d H:i:s'));
                 
-                $this->load->model('user_model');
-                $result = $this->user_model->addNewUser($userInfo);
+                $this->load->model('UM');
+                $result = $this->UM->addNewUser($userInfo);
                 
                 if($result > 0)
                 {
@@ -169,8 +169,8 @@ class User extends BaseController
                 redirect('userListing');
             }
             
-            $data['roles'] = $this->user_model->getUserRoles();
-            $data['userInfo'] = $this->user_model->getUserInfo($userId);
+            $data['roles'] = $this->UM->getUserRoles();
+            $data['userInfo'] = $this->UM->getUserInfo($userId);
             
             $this->global['pageTitle'] = 'CodeInsect : Edit User';
             
@@ -227,7 +227,7 @@ class User extends BaseController
                         'updatedDtm'=>date('Y-m-d H:i:s'));
                 }
                 
-                $result = $this->user_model->editUser($userInfo, $userId);
+                $result = $this->UM->editUser($userInfo, $userId);
                 
                 if($result == true)
                 {
@@ -259,7 +259,7 @@ class User extends BaseController
             $userId = $this->input->post('userId');
             $userInfo = array('isDeleted'=>1,'updatedBy'=>$this->vendorId, 'updatedDtm'=>date('Y-m-d H:i:s'));
             
-            $result = $this->user_model->deleteUser($userId, $userInfo);
+            $result = $this->UM->deleteUser($userId, $userInfo);
             
             if ($result > 0) { echo(json_encode(array('status'=>TRUE))); }
             else { echo(json_encode(array('status'=>FALSE))); }
@@ -297,7 +297,7 @@ class User extends BaseController
             $oldPassword = $this->input->post('oldPassword');
             $newPassword = $this->input->post('newPassword');
             
-            $resultPas = $this->user_model->matchOldPassword($this->vendorId, $oldPassword);
+            $resultPas = $this->UM->matchOldPassword($this->vendorId, $oldPassword);
             
             if(empty($resultPas))
             {
@@ -309,7 +309,7 @@ class User extends BaseController
                 $usersData = array('password'=>getHashedPassword($newPassword), 'updatedBy'=>$this->vendorId,
                                 'updatedDtm'=>date('Y-m-d H:i:s'));
                 
-                $result = $this->user_model->changePassword($this->vendorId, $usersData);
+                $result = $this->UM->changePassword($this->vendorId, $usersData);
                 
                 if($result > 0) { $this->session->set_flashdata('success', 'Password updation successful'); }
                 else { $this->session->set_flashdata('error', 'Password updation failed'); }

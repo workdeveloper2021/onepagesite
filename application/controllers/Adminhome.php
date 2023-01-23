@@ -17,7 +17,7 @@ class Adminhome extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('Usermodel','UM');
         $this->isLoggedIn();
         $this->load->model('Homemodel','HM');
          $this->load->helper(array('form', 'url'));   
