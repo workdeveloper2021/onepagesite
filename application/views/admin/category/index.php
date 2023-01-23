@@ -40,7 +40,7 @@
                                 <td><?= $value->category ?></td>
                                 <td><?= $value->contentType; ?></td>
                                 <td>
-                                    <a href="<?= base_url('content/edit/').$value->id; ?>" class="btn btn-primary">Edit</a> 
+                                    <!-- <a href="<?= base_url('content/edit/').$value->id; ?>" class="btn btn-primary">Edit</a>  -->
                                     <a href="<?= base_url('item?id=').$value->id; ?>" class="btn btn-primary">Items List</a>
 
                                 </td>

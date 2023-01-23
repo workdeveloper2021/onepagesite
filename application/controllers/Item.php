@@ -39,33 +39,78 @@ class Item extends BaseController
     }
     public function save()
     {
-        $post = $this->input->post();
-        $result = add_item($post['categoryId'],$post['image'],$post['video']);
-        if($result){
+        $image = curl_file_create($_FILES['image']['tmp_name'],$_FILES['image']['type'],$_FILES['image']['name']);
+        $video = curl_file_create($_FILES['video']['tmp_name'],$_FILES['video']['type'],$_FILES['video']['name']);
+
+        $postRequest = array(
+               'categoryId' => $_POST['categoryId'],
+               'name' => 'test',
+               'thumbnail' => $image,
+               'url' =>$video
+        );
+           $cURL = curl_init('http://107.21.80.111:5500/admin/item/addItem');
+           curl_setopt($cURL, CURLOPT_POSTFIELDS, $postRequest);
+           curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+
+           if(curl_exec($cURL) === false){
+                echo 'Curl error: ' . curl_error($cURL);
+           }else{
+                $curlResponse = curl_exec($cURL);
+           }
+           curl_close($cURL);
+        if($curlResponse){
             
             $this->session->set_flashdata('up_success','Slider Added Successfully');
-            redirect('item?id='.$post['categoryId']);
+            redirect('item?id='.$_POST['categoryId']);
         }
         else{
             
             $this->session->set_flashdata('fail','Not Added');
-            redirect('item?id='.$post['categoryId']);
+            redirect('item?id='.$_POST['categoryId']);
         }
     }
 
     public function update(){
-        $post = $this->input->post();
-        
-        $result = update_item($post['id'],$post['categoryId'],$post['image'],$post['video']);
-            if($result){
+        if($_FILES['image']['size'] > 0){
+        $image = curl_file_create($_FILES['image']['tmp_name'],$_FILES['image']['type'],$_FILES['image']['name']);
+        }else{
+        $image = $_POST['oldimage'];
+        }
+
+        if($_FILES['video']['size'] > 0){
+        $video = curl_file_create($_FILES['video']['tmp_name'],$_FILES['video']['type'],$_FILES['video']['name']);
+        }else{
+        $video = $_POST['oldvideo'];    
+        }
+       
+
+        $postRequest = array(
+               'id' =>$_POST['id'],
+               'categoryId' => $_POST['categoryId'],
+               'name' => 'test',
+               'thumbnail' => $image,
+               'url' =>$video
+        );
+           $cURL = curl_init('http://107.21.80.111:5500/admin/item/updateItem');
+           curl_setopt($cURL, CURLOPT_POSTFIELDS, $postRequest);
+           curl_setopt($cURL, CURLOPT_CUSTOMREQUEST, 'PUT');
+           curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+
+           if(curl_exec($cURL) === false){
+                echo 'Curl error: ' . curl_error($cURL);
+           }else{
+                $curlResponse = curl_exec($cURL);
+           }
+           curl_close($cURL);
+            if($curlResponse){
                 
-                $this->session->set_flashdata('up_success','Slider Updated Successfully');
-                redirect('item?id='.$post['categoryId']);
+                $this->session->set_flashdata('up_success','Item Updated Successfully');
+                redirect('item?id='.$_POST['categoryId']);
             }
             else{
                 
                 $this->session->set_flashdata('fail','Banner Not Added');
-               redirect('item?id='.$post['categoryId']);
+               redirect('item?id='.$_POST['categoryId']);
             }
     }
     public function delete()

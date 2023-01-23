@@ -21,11 +21,13 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label for="">Image:</label>
-                            <input class="form-control" type="text" name="image" value="<?= $_GET['image'] ?>" required />
+                            <input class="form-control" type="file" name="image"   />
                         </div>
                         <div class="col-lg-6">
-                            <label for="">Vido:</label>
-                            <input class="form-control" type="text" name="video" value="<?= $_GET['video'] ?>" required />
+                            <label for="">Video:</label>
+                            <input class="form-control" type="file" name="video"   />
+                            <input type="hidden" name="oldimage" value="<?= $_GET['image'] ?>">
+                            <input type="hidden" name="oldvideo"  value="<?= $_GET['video'] ?>">
                             <input type="hidden" name="categoryId" value="<?= $_GET['categoryId'] ?>">
                         </div>
                         <div class=" text-xs-right " style="margin-top:10px;">
