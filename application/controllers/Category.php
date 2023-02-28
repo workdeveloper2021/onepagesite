@@ -21,7 +21,9 @@ class Category extends BaseController
      */
     public function index()
     { 
+
     	$data['category'] = fetch_category();
+        
         $this->loadViews("admin/category/index",$data);
     }
 

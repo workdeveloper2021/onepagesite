@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>CodeInsect | Admin System Log in</title>
+    <title>Admin Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -18,7 +18,10 @@
   <body class="login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="#"><b>CodeInsect</b><br>Admin System</a>
+        <a href="#">
+        <b>
+        <!-- <img src="<?= base_url()?>assets/images/logo12.jpeg" style="width:100px; height:50px;background:black"> -->
+        <br>Admin Log in</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Sign In</p>
@@ -72,7 +75,7 @@
           </div>
         </form>
 
-        <a href="<?php echo base_url() ?>forgotPassword">Forgot Password</a><br>
+        <!-- <a href="<?php echo base_url() ?>forgotPassword">Forgot Password</a><br> -->
         
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->

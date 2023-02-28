@@ -40,11 +40,14 @@
       
       <header class="main-header">
         <!-- Logo -->
-        <a href="<?php echo base_url(); ?>" class="logo">
+        <a href="<?php echo base_url('category'); ?>" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>CI</b>AS</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>CodeInsect</b>AS</span>
+          <span class="logo-lg">
+            <!-- <b>CodeInsect</b>AS -->
+            <img src="<?= base_url()?>assets/images/logo12-removebg-preview.png" style="width:126px; height:40px;">
+          </span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -56,14 +59,14 @@
             <ul class="nav navbar-nav">
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="<?php echo base_url(); ?>assets/dist/img/avatar.png" class="user-image" alt="User Image"/>
-                  <span class="hidden-xs">System Administrator</span>
+                <a href="<?= base_url('category')?>" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="<?php echo base_url(); ?>assets/images/profile.webp" class="user-image" alt="User Image"/>
+                  <span class="hidden-xs">Super Admin</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="<?php echo base_url(); ?>assets/dist/img/avatar.png" class="img-circle" alt="User Image" />
+                    <img src="<?php echo base_url(); ?>assets/images/profile.webp" class="img-circle" alt="User Image" />
                     <p>
                       
                       <small></small>
@@ -71,9 +74,9 @@
                   </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
+                   <!--  <div class="pull-left">
                       <a href="<?php echo base_url(); ?>loadChangePass" class="btn btn-default btn-flat"><i class="fa fa-key"></i> Change Password</a>
-                    </div>
+                    </div> -->
                     <div class="pull-right">
                       <a href="<?php echo base_url(); ?>logout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Sign out</a>
                     </div>
@@ -90,11 +93,11 @@
         <section class="sidebar">
           <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url();?>assets/images/profile.webp" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p>Super Admin</p>
+          <a href="<?= base_url('category');?>"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
       <!-- search form -->

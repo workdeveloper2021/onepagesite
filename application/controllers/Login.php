@@ -16,6 +16,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Loginmodel','LM');
+        $this->load->helper(array('form', 'url','datafetch'));  
     }
 
     /**
@@ -63,22 +64,20 @@ class Login extends CI_Controller
             $email = $this->input->post('email');
             $password = $this->input->post('password');
             
-            $result = $this->LM->loginMe($email, $password);
-            
-            if(count($result) > 0)
-            {
+            // $result = $this->LM->loginMe($email, $password);
+            $result = login($email,$password);
+            if($result->success > 0)
+            { 
                 foreach ($result as $res)
                 {
-                    $sessionArray = array('userId'=>$res->userId,                    
-                                            'role'=>$res->roleId,
-                                            'roleText'=>$res->role,
-                                            'name'=>$res->name,
+                    $sessionArray = array('userId'=>$result->success->id,   
+                                            'name'=>$result->success->email,
                                             'isLoggedIn' => TRUE
                                     );
                                     
                     $this->session->set_userdata($sessionArray);
                     
-                    redirect('/dashboard');
+                    redirect('/category');
                 }
             }
             else
